@@ -1,8 +1,7 @@
 from django.db import models
-from django.db.models.deletion import SET_NULL, CASCADE
+from django.db.models.deletion import CASCADE, SET_NULL
 
 from users.models import CustomUser
-
 
 SCORES = [(i, i) for i in range(1, 11)]
 
@@ -99,8 +98,7 @@ class Review(models.Model):
         ordering = ["-pk"]
         constraints = [
             models.UniqueConstraint(
-                fields=["title", "author"],
-                name="unique_review"
+                fields=["title", "author"], name="unique_review"
             )
         ]
 

@@ -1,12 +1,10 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 from rest_framework.validators import UniqueValidator
 
-from django.contrib.auth import get_user_model
-
-from reviews.models import Category, Genre, Title, Review, Comment
+from reviews.models import Category, Comment, Genre, Review, Title
 from users.models import ROLE_CHOICES
-
 
 User = get_user_model()
 
@@ -28,10 +26,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         author = self.context["request"].user
         method = self.context["request"].method
         if (
-            Review.objects.filter(
-                title=title_id,
-                author=author
-            ).exists()
+            Review.objects.filter(title=title_id, author=author).exists()
             and method != "PATCH"
         ):
             raise serializers.ValidationError(
@@ -59,7 +54,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class GenreSerializer(serializers.ModelSerializer):
-
     class Meta:
         fields = (
             "name",
@@ -74,6 +68,14 @@ class TitleReadSerializer(serializers.ModelSerializer):
     genre = GenreSerializer(many=True, required=False)
     category = CategorySerializer(required=False)
     rating = serializers.IntegerField(read_only=True)
+
+    # В запросе на чтение (GET) данные в validate отсутствуют
+    def validate(self, data):
+        print("data: ", data["description"])
+        if len(data["description"]) == 0:
+            print("field description is empty")
+            raise serializers.ValidationError("finish must occur after start")
+        return data
 
     class Meta:
         fields = (
@@ -91,13 +93,10 @@ class TitleReadSerializer(serializers.ModelSerializer):
 class TitleWriteSerializer(serializers.ModelSerializer):
 
     genre = SlugRelatedField(
-        slug_field='slug',
-        queryset=Genre.objects.all(),
-        many=True
+        slug_field="slug", queryset=Genre.objects.all(), many=True
     )
     category = SlugRelatedField(
-        slug_field='slug',
-        queryset=Category.objects.all()
+        slug_field="slug", queryset=Category.objects.all()
     )
 
     class Meta:
@@ -110,6 +109,22 @@ class TitleWriteSerializer(serializers.ModelSerializer):
             "category",
         )
         model = Title
+
+    # Пример: получение данных словаря {context}
+    def validate(self, data):
+        print("data: ", data["year"])
+        author = self.context["request"].user
+        method = self.context["request"].method
+        print(f"author: {author}, method: {method}")
+
+        print("context: ", self.context)
+
+        if data["year"] > 2020:
+            print("new movie")
+            # raise serializers.ValidationError(
+            #     "finish must occur after start"
+            # )
+        return data
 
 
 class SignUpSerializer(serializers.ModelSerializer):
@@ -147,7 +162,6 @@ class TokenRequestSerializer(serializers.Serializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     class Meta:
 
         fields = (
@@ -158,7 +172,7 @@ class UserSerializer(serializers.ModelSerializer):
             "bio",
             "role",
         )
-        read_only_fields = ['role']
+        read_only_fields = ["role"]
         model = User
 
 

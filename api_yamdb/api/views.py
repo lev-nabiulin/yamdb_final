@@ -1,39 +1,26 @@
 from django.conf import settings
-from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
-from django.core.mail import send_mail
 from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
 from django.db.models import Avg
-
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-
-from rest_framework import viewsets, filters, pagination, permissions, status
-from rest_framework.response import Response
+from rest_framework import filters, pagination, permissions, status, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from reviews.models import Category, Genre, Title, Review
-from .serializers import (
-    CategorySerializer,
-    GenreSerializer,
-    TitleReadSerializer,
-    CommentSerializer,
-    ReviewSerializer,
-    UserSerializer,
-    SignUpSerializer,
-    TokenRequestSerializer,
-    TitleWriteSerializer,
-    AdminSerializer,
-)
-from .permissions import (
-    IsSuperAdmin,
-    IsAdminOrReadOnly,
-    IsAuthorOrModerator,
-    IsMe,
-)
-from .filters import TitleFilter
-from .viewsets import CategoryGenreViewSet
+from reviews.models import Category, Genre, Review, Title
 
+from .filters import TitleFilter
+from .permissions import (IsAdminOrReadOnly, IsAuthorOrModerator, IsMe,
+                          IsSuperAdmin)
+from .serializers import (AdminSerializer, CategorySerializer,
+                          CommentSerializer, GenreSerializer, ReviewSerializer,
+                          SignUpSerializer, TitleReadSerializer,
+                          TitleWriteSerializer, TokenRequestSerializer,
+                          UserSerializer)
+from .viewsets import CategoryGenreViewSet
 
 User = get_user_model()
 
@@ -59,9 +46,9 @@ class GenreViewSet(CategoryGenreViewSet):
 
 
 class TitleViewSet(viewsets.ModelViewSet):
-    queryset = Title.objects.annotate(
-        rating=Avg('reviews__score')
-    ).order_by("id")
+    queryset = Title.objects.annotate(rating=Avg("reviews__score")).order_by(
+        "id"
+    )
     permission_classes = (IsAdminOrReadOnly,)
     pagination_class = pagination.LimitOffsetPagination
     filter_backends = (DjangoFilterBackend,)
@@ -111,10 +98,7 @@ class UserViewSet(viewsets.ModelViewSet):
     lookup_field = "username"
 
     def get_serializer_class(self):
-        if (
-            self.request.user.is_authenticated
-            and self.request.user.is_admin
-        ):
+        if self.request.user.is_authenticated and self.request.user.is_admin:
             return AdminSerializer
         return UserSerializer
 
@@ -122,14 +106,14 @@ class UserViewSet(viewsets.ModelViewSet):
         url_path="me",
         methods=["get", "patch"],
         detail=False,
-        permission_classes=(IsMe,)
+        permission_classes=(IsMe,),
     )
     def get_current_user_info(self, request):
         serializer = self.get_serializer(
             request.user,
             data=request.data,
             partial=True,
-            context={'request': request}
+            context={"request": request},
         )
         serializer.is_valid(raise_exception=True)
         if request.method == "PATCH":
