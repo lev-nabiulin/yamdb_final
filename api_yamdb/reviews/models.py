@@ -1,13 +1,14 @@
 from django.db import models
 from django.db.models.deletion import CASCADE, SET_NULL
-
 from users.models import CustomUser
 
 SCORES = [(i, i) for i in range(1, 11)]
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Категория произведения")
+    name = models.CharField(
+        max_length=50, verbose_name="Категория произведения"
+    )
     slug = models.SlugField(unique=True, verbose_name="URL категории")
 
     def __str__(self):
@@ -23,7 +24,9 @@ class Genre(models.Model):
 
 
 class Title(models.Model):
-    name = models.CharField(max_length=200, verbose_name="Название произведения")
+    name = models.CharField(
+        max_length=200, verbose_name="Название произведения"
+    )
     year = models.IntegerField(verbose_name="Дата создания")
 
     description = models.TextField(
@@ -93,7 +96,9 @@ class Review(models.Model):
     class Meta:
         ordering = ["-pk"]
         constraints = [
-            models.UniqueConstraint(fields=["title", "author"], name="unique_review")
+            models.UniqueConstraint(
+                fields=["title", "author"], name="unique_review"
+            )
         ]
 
     def __str__(self):
@@ -114,7 +119,9 @@ class Comment(models.Model):
         related_name="comments",
         verbose_name="Автор комментария",
     )
-    pub_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата комментария")
+    pub_date = models.DateTimeField(
+        auto_now_add=True, verbose_name="Дата комментария"
+    )
 
     class Meta:
         ordering = ["-pk"]

@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 from rest_framework.validators import UniqueValidator
-
 from reviews.models import Category, Comment, Genre, Review, Title
 from users.models import ROLE_CHOICES
 
@@ -92,8 +91,12 @@ class TitleReadSerializer(serializers.ModelSerializer):
 
 class TitleWriteSerializer(serializers.ModelSerializer):
 
-    genre = SlugRelatedField(slug_field="slug", queryset=Genre.objects.all(), many=True)
-    category = SlugRelatedField(slug_field="slug", queryset=Category.objects.all())
+    genre = SlugRelatedField(
+        slug_field="slug", queryset=Genre.objects.all(), many=True
+    )
+    category = SlugRelatedField(
+        slug_field="slug", queryset=Category.objects.all()
+    )
 
     class Meta:
         fields = (
