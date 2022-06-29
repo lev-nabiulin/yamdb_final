@@ -13,7 +13,8 @@
 Cоздан в команде из трёх человек с использованим Git в рамках учебного курса Яндекс.Практикум.
 
 ## Статус последнего релиза:
-![Workflow_yamdb](https://github.com/levnabiulin/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg?event=push)
+
+![example workflow](https://github.com/levnabiulin/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 
 ## Стек технологий
 
