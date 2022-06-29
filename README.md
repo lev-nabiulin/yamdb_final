@@ -14,7 +14,7 @@ Cоздан в команде из трёх человек с использов
 
 ## Статус последнего релиза:
 
-![example workflow](https://github.com/levnabiulin/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
+![example workflow](https://github.com/lev-nabiulin/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 
 ## Стек технологий
 
