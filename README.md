@@ -112,9 +112,10 @@ docker-compose exec web python manage.py collectstatic --no-input
 ```
 docker-compose exec web python manage.py loaddata fixtures.json
 ```
-### OpenAPI схема:
+### Ссылки на проект:
 
-http://127.0.0.1:8000/redoc/
+Проект - http://51.250.110.246
+Схема API - http://51.250.110.246/redoc/
 
 ## Автор
  **GitHub** - [lev-nabiulin](https://github.com/lev-nabiulin/)
