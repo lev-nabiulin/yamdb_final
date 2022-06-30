@@ -65,9 +65,9 @@ YaMDB отправляет письмо с кодом подтверждения
 
 ### 1. Клонировать репозиторий и перейти в него в командной строке:
 
-git clone https://github.com/lev-nabiulin/infra_sp2.git
+git clone https://github.com/lev-nabiulin/yamdb_final.git
 
-cd infra_sp2
+cd yamdb_final
 
 ### 2. Cоздать и активировать виртуальное окружение:
 
@@ -94,7 +94,7 @@ python3 manage.py migrate
 ```
 python manage.py createsuperuser
 ```
-### 5. Запустить проект:
+### 6. Запустить проект:
 ```
 cd ../infra
 
