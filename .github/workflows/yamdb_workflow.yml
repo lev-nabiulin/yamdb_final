@@ -65,7 +65,6 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         script: |
-          sudo docker pull levnabiulin/infra_web
           sudo docker-compose stop
           sudo docker-compose rm web
           sudo docker-compose up -d
