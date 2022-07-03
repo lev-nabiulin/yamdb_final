@@ -7,11 +7,16 @@ load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.getenv('SECRET_KEY', 'p&l%385148kslhtyn^##a1)ilz@4zqj=rq&agdol^##zgl9(vs')
+SECRET_KEY = os.getenv(
+    'SECRET_KEY', 'p&l%385148kslhtyn^##a1)ilz@4zqj=rq&agdol^##zgl9(vs')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['130.193.43.185', 'localhost', 'lnyatube.hopto.org'] 
+ALLOWED_HOSTS = [
+    '130.193.43.185',
+    'localhost',
+    'lnyatube.hopto.org'
+]
 
 
 INSTALLED_APPS = [
