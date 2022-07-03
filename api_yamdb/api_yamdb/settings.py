@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'p&l%385148kslhtyn^##a1)ilz@4zqj=rq&agdol^#
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['130.193.43.185', 'localhost', 'lnyatube.hopto.org'] 
 
 
 INSTALLED_APPS = [
