@@ -14,13 +14,13 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class GenreAdmin(admin.ModelAdmin):
-    """Описыват модель раздела редактирования жанров"""
+    """Описывает модель раздела редактирования жанров"""
 
     list_display = ("pk", "name", "slug")
 
 
 class TitleAdmin(admin.ModelAdmin):
-    """Описыват модель раздела редактирования произведений"""
+    """Описывает модель раздела редактирования произведений"""
 
     list_display = (
         "pk",
@@ -33,7 +33,7 @@ class TitleAdmin(admin.ModelAdmin):
 
 
 class ReviewAdmin(admin.ModelAdmin):
-    """Описыват модель раздела редактирования отзывов"""
+    """Описывает модель раздела редактирования отзывов"""
 
     list_display = (
         "pk",
