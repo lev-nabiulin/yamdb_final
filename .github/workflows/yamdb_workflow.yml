@@ -49,8 +49,9 @@ jobs:
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         with:
-          context: .
           push: true
+          context: .
+          file: ./api_yamdb/Dockerfile
           tags: levnabiulin/infra_web:latest
 
   deploy:
