@@ -115,8 +115,8 @@ docker-compose exec web python manage.py loaddata fixtures.json
 ```
 ### Ссылки на проект:
 
-Проект - http://51.250.110.246 <br />
-Схема API - http://51.250.110.246/redoc/
+Проект - http://51.250.28.83 <br />
+Схема API - http://51.250.28.83/redoc/
 
 ## Автор
  **GitHub** - [lev-nabiulin](https://github.com/lev-nabiulin/)
